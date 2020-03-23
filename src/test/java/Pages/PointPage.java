@@ -1,6 +1,8 @@
 package Pages;
 
 import com.google.common.annotations.VisibleForTesting;
+import org.junit.Assert;
+import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -21,39 +23,38 @@ public class PointPage {
 
     @FindBy(xpath = "//input[@id='money-input-mdl']")
     private static WebElement inputMoneyValueMDL;
-    @FindBy(xpath = "//input[@id='money-input-ron']")
+    @FindBy(xpath = "//td[@class='money-widget-exchange-table-tbody-item-calculator']//input[@data-currency='ron']")
     private static WebElement getValueFromRON;
-
-
+    @FindBy(xpath = "//td[@id='money-trade-buy-ron']")
+    private static WebElement getRON;
 
 
 
 
     public static void clickToSelectBancaNationala(){
+        System.out.println(getValueFromRON.getText());
         bancaNationalaAMoldovei.click();
-        Driver.getDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        Driver.getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     }
 
     public static void clickToSelectMoldinconBank(){
         selectMoldinconbank.click();
-        Driver.getDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        Driver.getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
     }
-    public static String mdl = "5000";
-    public static void clickToInputMoneyValueMDL(){
-        inputMoneyValueMDL.sendKeys(mdl);
-        Driver.getDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+
+
+    public static void clickToInputMoneyValueMDL(double mdl){
+        inputMoneyValueMDL.sendKeys(String.valueOf(mdl));
+        Driver.getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     }
 
     @Test
-    public static void ExchangeTest(String mdl){
-        double num = Double.parseDouble(mdl);
+    public static void ExchangeTest(double actualResult){
+        System.out.println(getValueFromRON.getText());
         double num2 = Double.parseDouble(getValueFromRON.getText());
-        if(num2 != (num/3.84)){
 
-        }else{
-            System.out.println("Done");
-        }
+        Assert.assertEquals(num2,actualResult/Double.parseDouble(getRON.getText()));
     }
 
 
@@ -64,8 +65,6 @@ public class PointPage {
 
     }
 
-    public PointPage() {
-    }
 
 
 

@@ -1,9 +1,10 @@
-Feature: Point Form
+Feature: PointForm
   Scenario:
     Given Enter on the main Page
     When  On the right side of screen click "Banca Nationala"
     And Change "BNM" to Moldinconbank
     And Click to input money value
+
 
 
     #money-widget-exchange-filters-banks-selected
